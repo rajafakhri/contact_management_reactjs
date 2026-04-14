@@ -3,6 +3,14 @@ import { createRoot } from 'react-dom/client'
 import Layouts from './components/Layouts'
 import UserRegister from './components/User/UserRegister'
 import { BrowserRouter, Route, Routes } from 'react-router'
+import UserLogin from './components/User/UserLogin'
+import DashboardLayouts from './components/DashboardLayouts'
+import UserProfile from './components/User/UserProfile'
+import UserLogout from './components/User/UserLogout'
+import ContactCreate from './components/Contact/ContactCreate'
+import ContactList from './components/Contact/ContactList'
+import ContactEdit from './components/Contact/ContactEdit'
+import ContactDetail from './components/Contact/ContactDetail'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -10,8 +18,20 @@ createRoot(document.getElementById('root')).render(
         <Routes>
             <Route element={<Layouts />}>
               <Route path="/register" element={<UserRegister />} />
+              <Route path="/login" element={<UserLogin />} />
             </Route>
-          <Route path="/dashboard">
+          <Route path="/dashboard" element={<DashboardLayouts />} >              
+              <Route path='users'>
+                <Route path="profile" element={<UserProfile />} />
+                <Route path="logout" element={<UserLogout />} />
+              </Route>
+
+              <Route path='contacts'>
+                  <Route index element={<ContactList />} />
+                  <Route path='create' element={<ContactCreate />} />
+                  <Route path=':id' element={<ContactDetail />} />
+                  <Route path=':id/edit' element={<ContactEdit />} />
+              </Route>
           </Route>
         </Routes>
     </BrowserRouter>
